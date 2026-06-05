@@ -1,0 +1,34 @@
+Foi configurado o serviço OpenSSH para permitir a administração remota do servidor de forma segura.
+
+Instalação e Validação
+
+Foram instalados e verificados os componentes do OpenSSH Server e Client, além da validação do serviço e da porta de comunicação utilizada pelo SSH.
+
+Configuração do Serviço
+
+As configurações do servidor SSH foram personalizadas para aumentar a segurança e o controle de acesso, incluindo:
+
+Definição do endereço de escuta da interface de rede
+Restrição de usuários autorizados
+Restrição de grupos autorizados
+Configuração de banner de acesso ao servidor
+Validação dos arquivos de configuração
+Controle de Acesso
+
+Foram realizadas configurações adicionais para monitoramento e controle de conexões remotas, registrando tentativas de acesso permitidas e negadas através dos arquivos de log do sistema.
+
+Gerenciamento de Usuários
+
+Foi criado um usuário administrativo dedicado para gerenciamento do servidor, com permissões elevadas através do grupo sudo.
+
+Monitoramento e Auditoria
+
+Foram utilizados comandos e ferramentas de monitoramento para:
+
+Verificar usuários conectados
+Monitorar sessões SSH ativas
+Analisar logs de autenticação
+Acompanhar eventos de segurança do sistema
+Testes de Acesso Remoto
+
+A conectividade SSH foi validada a partir de diferentes clientes, confirmando o funcionamento correto do acesso remoto ao servidor.
