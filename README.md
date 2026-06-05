@@ -1,27 +1,28 @@
-# Ubuntu-server-lab
-My Ubuntu server. I created this server to study about linux, and how configure it and the services.
+# Laboratório Servidor Ubuntu 
 
-technologys
+Criei este servidor para estudar sobre Linux, como configurá-lo e seus serviços.
 
-* **Operation System:** Ubuntu Server 22.04.05
-* **Web Server:** Apache 2.4.52
-* **Application Service:** Node.js 24.16.0
+Tecnologias Usadas
+
+* **Sistema Operacional:** Ubuntu Server 22.04.05
+* **Servidor Web:** Apache 2.4.52
+* **Serviço de Aplicação:** Node.js 24.16.0
 * **Banco de Dados:** MySQL Server 8.0.46
 * **CMS:** WordPress 7.0
 
 ---
 
-## Network Architecture and Configuration
+## Configuração de rede
 
-To ensure that services were consistently accessible within the local network, the server was configured with a **Static IP**.
+Para garantir que os serviços estivessem sempre acessíveis na rede local, o servidor foi configurado com um **IP estático**.
 
-### Port and Service Mapping
+### Portas e serviços
 
-All services have been isolated into their own folders within the Ubuntu file system and respond on the following standard ports:
+Todos os serviços foram isolados em suas próprias pastas dentro do sistema de arquivos do Ubuntu e respondem nas seguintes portas padrão:
 
-| Service | Default port | Description / Function |
+| Serviço | porta padrão | Descrição / Função |
 | :--- | :--- | :--- |
-| **SSH** | `22` | Secure remote access via terminal.|
-| **Apache** | `80` | The main web server that manages WordPress traffic. |
-| **Node.js** | `3000` | Back-end API responsible for customized business rules. |
-| **MySQL** | `3306` | A centralized database that supports both WordPress and Node.js. |
+| **SSH** | `22` | Acesso remoto seguro via terminal.|
+| **Apache** | `80` | O servidor web principal que gerencia o tráfego do WordPress. |
+| **Node.js** | `3000` | API de back-end responsável por regras de negócio personalizadas. |
+| **MySQL** | `3306` | Um banco de dados centralizado que oferece suporte tanto ao WordPress quanto ao Node.js. |
