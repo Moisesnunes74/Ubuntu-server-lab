@@ -1,0 +1,41 @@
+Preparação do Ambiente
+
+Foi realizada a instalação do MySQL Server e das ferramentas de administração necessárias através do gerenciador de pacotes do Ubuntu. Após a instalação, foram verificadas a versão do serviço, seu status de execução e a porta padrão utilizada pelo banco de dados.
+
+Configuração e Segurança
+
+Durante a configuração foram executadas etapas de fortalecimento da segurança do ambiente, incluindo:
+
+Configuração do acesso administrativo do banco de dados;
+Remoção de acessos anônimos;
+Restrição de permissões desnecessárias;
+Criação de um usuário administrativo dedicado (DBA);
+Validação das permissões e autenticação dos usuários criados.
+
+Também foi realizada a análise dos arquivos de configuração do MySQL para compreender a estrutura do serviço e sua organização no sistema operacional.
+
+Conectividade
+
+Foram realizados testes de acesso utilizando o cliente MySQL diretamente pelo terminal do Ubuntu Server.
+
+Como etapa complementar, o servidor foi configurado para permitir conexões remotas, possibilitando a integração com ferramentas gráficas de administração e desenvolvimento, como MySQL Workbench e Visual Studio Code.
+
+Validações Realizadas
+Verificação do status do serviço MySQL;
+Consulta da versão instalada;
+Teste de autenticação dos usuários criados;
+Listagem de bancos de dados existentes;
+Testes de permissões administrativas;
+Validação da escuta da porta TCP 3306;
+Testes de conexão local e remota.
+Resultado
+
+Ao final da implementação, o servidor MySQL estava operacional, seguro e acessível para administração local e remota. O ambiente ficou preparado para integração com aplicações web hospedadas no Apache e futuras implementações de sistemas que necessitem de persistência de dados.
+
+Aprendizados
+Estrutura básica de funcionamento do MySQL Server;
+Gerenciamento de usuários e permissões;
+Diferença entre acesso local e remoto;
+Configuração de autenticação e segurança do banco de dados;
+Administração de serviços utilizando systemd;
+Integração do banco de dados com ferramentas externas de gerenciamento.
