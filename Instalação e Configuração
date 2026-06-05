@@ -1,0 +1,66 @@
+1 - Configurei a VM Oracle
+  - 2 Núcleos para processamento
+  - 4096MB de Ram
+  - 50GB de disco
+
+2 - Instalei a Imagem Ubuntu
+
+3 - Atualizações 
+  - Sudo apt update 
+  - sudo apgrade
+  - sudo apt full-upgrade
+  - Reinicialização da VM
+
+4 - Configuração de Rede do Ubuntu Server
+
+Nesta etapa foram realizadas as configurações básicas de rede do Ubuntu Server para permitir comunicação na rede local e acesso remoto.
+
+Alteração do Hostname e Hosts
+
+Foi configurado um nome de host (FQDN) personalizado para o servidor e atualizadas as entradas do arquivo /etc/hosts, permitindo a correta resolução de nomes dentro do ambiente.
+
+Instalação de Ferramentas de Rede
+
+Foram instalados utilitários de administração e diagnóstico de rede, incluindo:
+
+net-tools
+bridge-utils
+ifenslave
+fping
+lnav
+Verificação da Interface de Rede
+
+Foram utilizados comandos para identificar:
+
+Modelo da placa de rede
+Endereço MAC
+Endereço IPv4
+Gateway padrão
+Servidores DNS
+Informações obtidas via DHCP
+Configuração do Netplan
+
+A configuração de rede foi ajustada através do Netplan, definindo:
+
+Endereço IP
+Gateway padrão
+Servidores DNS
+Domínio de pesquisa
+
+Após as alterações, as configurações foram aplicadas e validadas utilizando os comandos de diagnóstico do sistema.
+
+Configuração de DNS Seguro
+
+Foi habilitado suporte a DNS Over TLS (DoT) e DNSSEC para aumentar a segurança na resolução de nomes.
+
+Testes de Conectividade
+
+Foram realizados testes para validar:
+
+Comunicação com a rede local
+Acesso à internet
+Resolução de nomes DNS
+Funcionamento correto das rotas de rede
+Acesso Remoto via SSH
+
+Após a configuração da rede, foi realizado acesso remoto ao servidor utilizando SSH, permitindo a administração do sistema através de outro equipamento.
