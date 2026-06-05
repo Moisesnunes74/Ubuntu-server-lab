@@ -1,0 +1,69 @@
+Preparação do Ambiente
+
+Antes da instalação do WordPress, foram verificadas e instaladas todas as dependências necessárias para seu funcionamento, incluindo módulos PHP responsáveis pelo processamento de formulários, manipulação de imagens, comunicação com banco de dados e recursos de internacionalização.
+
+Também foram validados os serviços previamente configurados:
+
+Apache Web Server;
+PHP;
+MySQL Server;
+OpenSSH para administração remota.
+Configuração do Banco de Dados
+
+Foi criada uma base de dados dedicada ao WordPress no MySQL, juntamente com um usuário específico para a aplicação.
+
+Essa abordagem segue boas práticas de segurança, evitando o uso do usuário root da base de dados pela aplicação e limitando as permissões apenas ao banco necessário.
+
+Foram realizados testes de autenticação para validar:
+
+Acesso ao banco de dados;
+Permissões do usuário criado;
+Comunicação entre aplicação e banco.
+Instalação da Aplicação
+
+O WordPress foi obtido a partir da distribuição oficial em português do Brasil.
+
+Após o download, os arquivos foram extraídos e movidos para o diretório de hospedagem do Apache, onde foram configuradas permissões adequadas de acesso para o servidor web.
+
+Também foi realizada a configuração inicial do arquivo wp-config.php, incluindo:
+
+Nome da base de dados;
+Usuário de conexão;
+Senha de acesso;
+Chaves de autenticação (Salt Keys) para aumento da segurança da plataforma.
+Integração com o Apache
+
+Foram habilitados os módulos necessários do Apache para garantir o correto funcionamento do WordPress, incluindo recursos de reescrita de URLs, manipulação de conteúdo estático e gerenciamento de requisições HTTP.
+
+Após a configuração, os serviços foram recarregados e validados através de testes locais utilizando ferramentas de linha de comando.
+
+Configuração Inicial do WordPress
+
+A instalação foi concluída através da interface web, onde foram definidos:
+
+Nome do site;
+Usuário administrador;
+Senha de administração;
+Endereço de e-mail do administrador.
+
+Também foram realizados ajustes nos links permanentes para garantir compatibilidade com ambientes sem DNS ou domínio configurado.
+
+Validações Realizadas
+Teste de acesso ao WordPress pelo navegador;
+Verificação da comunicação com o banco de dados;
+Teste de login administrativo;
+Validação das permissões de arquivos e diretórios;
+Verificação dos módulos Apache necessários;
+Teste de carregamento das páginas da aplicação.
+Resultado
+
+Ao final da implantação, o ambiente passou a disponibilizar uma instância funcional do WordPress integrada ao Apache, PHP e MySQL. O sistema ficou pronto para criação de páginas, publicações e gerenciamento de conteúdo através da interface administrativa do CMS.
+
+Aprendizados
+Estrutura de funcionamento do WordPress;
+Integração entre Apache, PHP e MySQL;
+Gerenciamento de permissões em aplicações web;
+Configuração do arquivo wp-config.php;
+Conceitos de autenticação utilizando Salt Keys;
+Implantação manual de aplicações web em servidores Linux;
+Diagnóstico de problemas de acesso e conectividade entre aplicação e banco de dados.
