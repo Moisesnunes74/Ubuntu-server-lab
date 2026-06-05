@@ -3,25 +3,25 @@ My Ubuntu server. I created this server to study about linux, and how configure 
 
 technologys
 
-* **Sistema Operacional:** Ubuntu Server (Virtualizado via Oracle VM VirtualBox)
-* **Servidor Web / Proxy Inverso:** Apache HTTP Server
-* **Ambiente de Execução:** Node.js
-* **Banco de Dados:** MySQL Server
-* **CMS:** WordPress
+* **Operation System:** Ubuntu Server 22.04.05
+* **Web Server:** Apache 2.4.52
+* **Application Service:** Node.js 24.16.0
+* **Banco de Dados:** MySQL Server 8.0.46
+* **CMS:** WordPress 7.0
 
 ---
 
-## 📐 Arquitetura e Configuração de Rede
+## Network Architecture and Configuration
 
-Para garantir que os serviços fossem acessíveis de forma consistente dentro da rede local, o servidor foi configurado com um **IP Estático (Fixo)**.
+To ensure that services were consistently accessible within the local network, the server was configured with a **Static IP**.
 
-### Mapeamento de Portas e Serviços
+### Port and Service Mapping
 
-Todos os serviços foram isolados em pastas próprias dentro do sistema de arquivos do Ubuntu e respondem nas seguintes portas padrão:
+All services have been isolated into their own folders within the Ubuntu file system and respond on the following standard ports:
 
-| Serviço | Porta Padrão | Descrição / Função |
+| Service | Default port | Description / Function |
 | :--- | :--- | :--- |
-| **SSH** | `22` | Acesso remoto seguro via terminal. |
-| **Apache** | `80` | Servidor Web principal que gerencia o tráfego do WordPress. |
-| **Node.js** | `3000` | API de Back-end responsável pelas regras de negócio customizadas. |
-| **MySQL** | `3306` | Banco de dados centralizado que atende tanto ao WordPress quanto ao Node.js. |
+| **SSH** | `22` | Secure remote access via terminal.|
+| **Apache** | `80` | The main web server that manages WordPress traffic. |
+| **Node.js** | `3000` | Back-end API responsible for customized business rules. |
+| **MySQL** | `3306` | A centralized database that supports both WordPress and Node.js. |
