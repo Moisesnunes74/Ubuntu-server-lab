@@ -64,3 +64,36 @@ Funcionamento correto das rotas de rede
 Acesso Remoto via SSH
 
 Após a configuração da rede, foi realizado acesso remoto ao servidor utilizando SSH, permitindo a administração do sistema através de outro equipamento.
+
+Preparação e Atualização do Sistema
+
+Antes da configuração dos serviços, foi realizada a atualização completa do Ubuntu Server para garantir que todos os pacotes estivessem na versão mais recente.
+
+Identificação do Sistema
+
+Foram verificadas as informações da distribuição instalada, incluindo:
+
+Versão do Ubuntu Server
+Release LTS (Long Term Support)
+Codinome da distribuição
+Informações de suporte e manutenção
+Atualização do Sistema
+
+Foi executado o processo de atualização dos pacotes do sistema operacional utilizando o gerenciador APT, incluindo:
+
+Atualização da lista de pacotes
+Instalação de atualizações disponíveis
+Atualização completa do sistema
+Remoção de dependências não utilizadas
+Habilitação do Ubuntu Pro
+
+Foi realizada a ativação do Ubuntu Pro para ampliar os recursos de segurança e manutenção do ambiente.
+
+Recursos utilizados:
+
+Extended Security Maintenance (ESM)
+Atualizações estendidas de segurança
+Verificação do status de segurança dos pacotes
+Monitoramento de vulnerabilidades e correções
+
+Após a ativação do Ubuntu Pro, o sistema foi atualizado novamente para aplicar os novos repositórios e recursos de segurança disponibilizados pela Canonical.
