@@ -4,6 +4,7 @@ Criei este servidor para estudar sobre Linux, como configurá-lo e seus serviço
 
 Tecnologias Usadas
 
+* **Programa de Virtualização:** Oracle VirtualBox 7.2.6
 * **Sistema Operacional:** Ubuntu Server 22.04.05
 * **Servidor Web:** Apache 2.4.52
 * **Serviço de Aplicação:** Node.js 24.16.0
