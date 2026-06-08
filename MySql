@@ -1,41 +1,179 @@
-Preparação do Ambiente
+Nesta etapa foi realizada a instalação e configuração do MySQL Server no Ubuntu Server, permitindo o armazenamento, gerenciamento e acesso aos bancos de dados utilizados pelos serviços hospedados no ambiente.
 
-Foi realizada a instalação do MySQL Server e das ferramentas de administração necessárias através do gerenciador de pacotes do Ubuntu. Após a instalação, foram verificadas a versão do serviço, seu status de execução e a porta padrão utilizada pelo banco de dados.
+Instalação do MySQL Server
 
-Configuração e Segurança
+Foi realizada a instalação do MySQL Server, MySQL Client e ferramentas auxiliares de administração e análise de desempenho do banco de dados.
 
-Durante a configuração foram executadas etapas de fortalecimento da segurança do ambiente, incluindo:
+Comandos utilizados:
 
-Configuração do acesso administrativo do banco de dados;
-Remoção de acessos anônimos;
-Restrição de permissões desnecessárias;
-Criação de um usuário administrativo dedicado (DBA);
-Validação das permissões e autenticação dos usuários criados.
+sudo apt update
 
-Também foi realizada a análise dos arquivos de configuração do MySQL para compreender a estrutura do serviço e sua organização no sistema operacional.
+sudo apt install git vim libproj22 proj-data mysql-server-8.0 mysql-client-8.0 mysqltuner
+Verificação do Serviço e da Versão
 
-Conectividade
+Após a instalação, foi realizada a validação do funcionamento do serviço MySQL, bem como a verificação das versões instaladas do servidor e do cliente.
 
-Foram realizados testes de acesso utilizando o cliente MySQL diretamente pelo terminal do Ubuntu Server.
+Comandos utilizados:
 
-Como etapa complementar, o servidor foi configurado para permitir conexões remotas, possibilitando a integração com ferramentas gráficas de administração e desenvolvimento, como MySQL Workbench e Visual Studio Code.
+sudo systemctl status mysql
+sudo systemctl restart mysql
+sudo systemctl stop mysql
+sudo systemctl start mysql
 
-Validações Realizadas
-Verificação do status do serviço MySQL;
-Consulta da versão instalada;
-Teste de autenticação dos usuários criados;
-Listagem de bancos de dados existentes;
-Testes de permissões administrativas;
-Validação da escuta da porta TCP 3306;
-Testes de conexão local e remota.
-Resultado
+sudo journalctl -xeu mysql
 
-Ao final da implementação, o servidor MySQL estava operacional, seguro e acessível para administração local e remota. O ambiente ficou preparado para integração com aplicações web hospedadas no Apache e futuras implementações de sistemas que necessitem de persistência de dados.
+sudo mysqld --version
+sudo mysql --version
+Verificação da Porta de Comunicação
 
-Aprendizados
-Estrutura básica de funcionamento do MySQL Server;
-Gerenciamento de usuários e permissões;
-Diferença entre acesso local e remoto;
-Configuração de autenticação e segurança do banco de dados;
-Administração de serviços utilizando systemd;
-Integração do banco de dados com ferramentas externas de gerenciamento.
+Foi validado o funcionamento da porta padrão TCP utilizada pelo MySQL Server para comunicação de clientes e aplicações.
+
+Comando utilizado:
+
+sudo lsof -nP -iTCP:'3306' -sTCP:LISTEN
+Estrutura de Arquivos e Diretórios
+
+Durante a configuração foram utilizados os principais diretórios do MySQL Server:
+
+/etc/mysql/
+/etc/mysql/mysql.conf.d/mysqld.cnf
+/etc/mysql/mysql.conf.d/mysql.cnf
+/var/log/mysql/
+/var/lib/mysql/
+/var/lib/mysql/ssl/
+/var/run/mysqld/
+Configuração de Segurança do Usuário Root
+
+Foi realizada a configuração de segurança do usuário administrativo Root do MySQL Server.
+
+Nesta etapa foram executadas ações como:
+
+Remoção de usuários anônimos;
+Remoção da base de dados de testes;
+Restrição de acesso remoto do usuário Root;
+Aplicação das permissões atualizadas;
+Configuração da autenticação do usuário administrativo.
+
+Comandos utilizados:
+
+sudo mysql -u root -p
+
+sudo mysql_secure_installation
+
+Consultas e comandos SQL utilizados:
+
+SHOW DATABASES;
+
+USE mysql;
+
+SHOW TABLES;
+
+SELECT user,host FROM user;
+
+ALTER USER 'root'@'localhost'
+IDENTIFIED WITH mysql_native_password
+BY 'sua_senha';
+
+GRANT ALL ON *.* TO 'root'@'localhost';
+
+FLUSH PRIVILEGES;
+
+SELECT user,host,authentication_string
+FROM user;
+Criação de Usuário DBA
+
+Foi criado um usuário administrativo dedicado para gerenciamento do banco de dados seguindo boas práticas de administração.
+
+Comandos SQL utilizados:
+
+CREATE USER 'dba'@'localhost'
+IDENTIFIED WITH mysql_native_password
+BY 'sua_senha';
+
+GRANT ALL ON *.* TO 'dba'@'localhost';
+
+FLUSH PRIVILEGES;
+
+SELECT user,host,authentication_string
+FROM mysql.user
+WHERE user='dba';
+
+SELECT user,host,authentication_string
+FROM mysql.user
+WHERE user='dba'
+OR user='root';
+
+Teste de acesso:
+
+sudo mysql -u dba -p
+Gerenciamento de Grupos Locais
+
+Foi realizada a inclusão do usuário do sistema operacional no grupo padrão do MySQL Server para facilitar a administração local do serviço.
+
+Comandos utilizados:
+
+sudo usermod -a -G mysql $USER
+
+newgrp mysql
+
+id
+
+sudo getent group mysql
+Configuração de Acesso Remoto
+
+Foi habilitado o acesso remoto ao MySQL Server através da alteração do arquivo de configuração principal do serviço.
+
+Foi realizada a modificação do parâmetro:
+
+bind-address = 0.0.0.0
+
+Comandos utilizados:
+
+sudo cp -v /etc/mysql/mysql.conf.d/mysqld.cnf \
+/etc/mysql/mysql.conf.d/mysqld.cnf.old
+
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+sudo mysqld --validate-config
+
+sudo systemctl restart mysql
+
+sudo systemctl status mysql
+
+sudo journalctl -xeu mysql
+Criação do Usuário Root Remoto
+
+Após a liberação do acesso remoto, foi criado um usuário Root com permissão de conexão a partir de qualquer origem.
+
+Comandos SQL utilizados:
+
+CREATE USER 'root'@'%'
+IDENTIFIED WITH mysql_native_password
+BY 'sua_senha';
+
+GRANT ALL ON *.* TO 'root'@'%';
+
+FLUSH PRIVILEGES;
+
+SELECT user,host,authentication_string
+FROM mysql.user
+WHERE user='root';
+Testes de Conectividade
+
+Foram realizados testes para validar:
+
+Funcionamento do serviço MySQL;
+Acesso local utilizando Root;
+Acesso utilizando usuário DBA;
+Aplicação correta das permissões;
+Funcionamento da porta TCP 3306;
+Acesso remoto ao banco de dados;
+Persistência das configurações após reinicialização do servidor.
+Conexão Utilizando MySQL Workbench
+
+Foi realizado acesso remoto ao MySQL Server através do MySQL Workbench utilizando:
+
+Endereço IPv4 do servidor;
+Porta TCP 3306;
+Usuário Root remoto;
+Autenticação por senha.
