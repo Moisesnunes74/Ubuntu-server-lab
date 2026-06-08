@@ -1,0 +1,201 @@
+Nesta etapa foi realizada a instalação e configuração do Apache2 no Ubuntu Server, preparando o ambiente para hospedagem de páginas web e futuras aplicações que utilizariam o servidor HTTP como frontend.
+
+### Instalação do Apache2
+
+Foi realizada a atualização dos repositórios do sistema e a instalação do serviço Apache Web Server.
+
+Comandos utilizados:
+
+```bash
+sudo apt update
+sudo apt install apache2
+```
+
+### Verificação do Serviço
+
+Após a instalação, foram realizadas verificações para garantir que o Apache estivesse em execução corretamente.
+
+Foram verificadas:
+
+- Versão instalada do Apache
+- Status do serviço
+- Inicialização automática no boot
+- Processos em execução
+
+Comandos utilizados:
+
+```bash
+apache2 -v
+
+sudo systemctl status apache2
+
+sudo systemctl enable apache2
+
+ps aux | grep apache2
+```
+
+### Gerenciamento do Serviço
+
+Durante os testes e configurações foram utilizados comandos para controle do serviço Apache.
+
+Comandos utilizados:
+
+```bash
+sudo systemctl start apache2
+
+sudo systemctl stop apache2
+
+sudo systemctl restart apache2
+
+sudo systemctl reload apache2
+```
+
+### Estrutura de Diretórios
+
+Foram analisados os principais diretórios utilizados pelo Apache no Ubuntu Server.
+
+Diretórios importantes:
+
+- `/etc/apache2/` → Arquivos de configuração do Apache.
+- `/var/www/html/` → Diretório padrão para hospedagem de sites.
+- `/var/log/apache2/` → Diretório de logs do servidor.
+
+Comandos utilizados:
+
+```bash
+tree /etc/apache2
+
+tree /var/www
+
+ls -lh /var/log/apache2
+```
+
+### Configuração do Firewall
+
+Foi realizada a liberação das portas utilizadas pelo Apache para permitir acesso ao servidor web.
+
+Comandos utilizados:
+
+```bash
+sudo ufw allow Apache
+
+sudo ufw status
+```
+
+Ou utilizando as portas específicas:
+
+```bash
+sudo ufw allow 80/tcp
+
+sudo ufw allow 443/tcp
+```
+
+### Criação da Página de Teste
+
+Foi criada uma página HTML simples para validar o funcionamento do servidor web.
+
+Arquivo utilizado:
+
+```text
+/var/www/html/index.html
+```
+
+Comando utilizado:
+
+```bash
+sudo nano /var/www/html/index.html
+```
+
+Exemplo de conteúdo:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servidor Apache</title>
+</head>
+<body>
+    <h1>Servidor Apache funcionando com sucesso!</h1>
+</body>
+</html>
+```
+
+### Testes de Funcionamento
+
+Após a configuração do serviço, foram realizados testes para validar o acesso local e remoto ao servidor.
+
+Foram testados:
+
+- Resposta HTTP do servidor
+- Acesso via navegador
+- Porta de escuta do serviço
+
+Comandos utilizados:
+
+```bash
+curl -I http://localhost
+```
+
+```bash
+curl -I http://IP_DO_SERVIDOR
+```
+
+```bash
+sudo ss -tunlp | grep :80
+```
+
+ou
+
+```bash
+sudo lsof -i :80
+```
+
+### Monitoramento e Logs
+
+Foram verificados os logs de acesso e erros do Apache para acompanhamento do funcionamento do serviço.
+
+Comandos utilizados:
+
+```bash
+sudo tail -f /var/log/apache2/access.log
+```
+
+```bash
+sudo tail -f /var/log/apache2/error.log
+```
+
+### Arquivos e Diretórios Importantes
+
+```text
+/etc/apache2/apache2.conf
+```
+
+Arquivo principal de configuração do Apache.
+
+```text
+/etc/apache2/sites-available/
+```
+
+Diretório dos Virtual Hosts disponíveis.
+
+```text
+/etc/apache2/sites-enabled/
+```
+
+Diretório dos Virtual Hosts habilitados.
+
+```text
+/var/www/html/
+```
+
+Diretório padrão para publicação dos sites.
+
+```text
+/var/log/apache2/access.log
+```
+
+Registro de acessos ao servidor.
+
+```text
+/var/log/apache2/error.log
+```
