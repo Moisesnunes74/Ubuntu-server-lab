@@ -1,69 +1,118 @@
-Preparação do Ambiente
+Instalei as dependências necessárias para execução do WordPress utilizando PHP integrado ao Apache2 Server.
 
-Antes da instalação do WordPress, foram verificadas e instaladas todas as dependências necessárias para seu funcionamento, incluindo módulos PHP responsáveis pelo processamento de formulários, manipulação de imagens, comunicação com banco de dados e recursos de internacionalização.
+Comandos utilizados
+sudo apt update
 
-Também foram validados os serviços previamente configurados:
+sudo apt install php-bcmath php-mbstring php-dev php-curl php-mysql php-xml php-zip \
+php-soap php-imagick php-intl php-json php-pear unzip pwgen libmcrypt-dev ghostscript \
+libapache2-mod-php zlib1g zlib1g-dev
 
-Apache Web Server;
-PHP;
-MySQL Server;
-OpenSSH para administração remota.
-Configuração do Banco de Dados
+Criei uma base de dados dedicada para o WordPress no MySQL Server, juntamente com um usuário específico para acesso ao banco de dados da aplicação.
 
-Foi criada uma base de dados dedicada ao WordPress no MySQL, juntamente com um usuário específico para a aplicação.
+Comandos utilizados
+sudo mysql -u root -p
+CREATE DATABASE wordpress;
 
-Essa abordagem segue boas práticas de segurança, evitando o uso do usuário root da base de dados pela aplicação e limitando as permissões apenas ao banco necessário.
+CREATE USER 'wordpress'
+IDENTIFIED WITH mysql_native_password
+BY 'sua_senha';
 
-Foram realizados testes de autenticação para validar:
+GRANT USAGE ON *.* TO 'wordpress';
 
-Acesso ao banco de dados;
-Permissões do usuário criado;
-Comunicação entre aplicação e banco.
-Instalação da Aplicação
+GRANT ALL PRIVILEGES ON wordpress.*
+TO 'wordpress';
 
-O WordPress foi obtido a partir da distribuição oficial em português do Brasil.
+FLUSH PRIVILEGES;
 
-Após o download, os arquivos foram extraídos e movidos para o diretório de hospedagem do Apache, onde foram configuradas permissões adequadas de acesso para o servidor web.
+SHOW DATABASES;
 
-Também foi realizada a configuração inicial do arquivo wp-config.php, incluindo:
+USE wordpress;
 
-Nome da base de dados;
-Usuário de conexão;
-Senha de acesso;
-Chaves de autenticação (Salt Keys) para aumento da segurança da plataforma.
-Integração com o Apache
+Realizei testes de autenticação utilizando o usuário criado para validar o acesso ao banco de dados.
 
-Foram habilitados os módulos necessários do Apache para garantir o correto funcionamento do WordPress, incluindo recursos de reescrita de URLs, manipulação de conteúdo estático e gerenciamento de requisições HTTP.
+Comandos utilizados
+sudo mysql -u wordpress -p
+SHOW DATABASES;
 
-Após a configuração, os serviços foram recarregados e validados através de testes locais utilizando ferramentas de linha de comando.
+USE wordpress;
 
-Configuração Inicial do WordPress
+Fiz o download da versão oficial do WordPress em português e realizei a implantação dos arquivos no diretório padrão do Apache2 Server.
 
-A instalação foi concluída através da interface web, onde foram definidos:
+Comandos utilizados
+wget -v -O /tmp/wordpress.zip \
+https://br.wordpress.org/latest-pt_BR.zip
 
-Nome do site;
-Usuário administrador;
-Senha de administração;
-Endereço de e-mail do administrador.
+unzip /tmp/wordpress.zip -d /tmp
 
-Também foram realizados ajustes nos links permanentes para garantir compatibilidade com ambientes sem DNS ou domínio configurado.
+sudo mv -v /tmp/wordpress/ /var/www/html/wp/
 
-Validações Realizadas
-Teste de acesso ao WordPress pelo navegador;
-Verificação da comunicação com o banco de dados;
-Teste de login administrativo;
-Validação das permissões de arquivos e diretórios;
-Verificação dos módulos Apache necessários;
-Teste de carregamento das páginas da aplicação.
-Resultado
+Configurei as permissões dos arquivos e diretórios para garantir o correto funcionamento do CMS e a integração com o usuário padrão do Apache.
 
-Ao final da implantação, o ambiente passou a disponibilizar uma instância funcional do WordPress integrada ao Apache, PHP e MySQL. O sistema ficou pronto para criação de páginas, publicações e gerenciamento de conteúdo através da interface administrativa do CMS.
+Comandos utilizados
+sudo chown -Rfv www-data:www-data /var/www/html/wp/
 
-Aprendizados
-Estrutura de funcionamento do WordPress;
-Integração entre Apache, PHP e MySQL;
-Gerenciamento de permissões em aplicações web;
-Configuração do arquivo wp-config.php;
-Conceitos de autenticação utilizando Salt Keys;
-Implantação manual de aplicações web em servidores Linux;
-Diagnóstico de problemas de acesso e conectividade entre aplicação e banco de dados.
+sudo find /var/www/html/wp/. \
+-type d \
+-exec chmod -v 2775 {} \;
+
+sudo find /var/www/html/wp/. \
+-type f \
+-exec chmod -v 2664 {} \;
+
+Configurei o arquivo principal do WordPress responsável pela conexão com o banco de dados MySQL.
+
+Comandos utilizados
+cd /var/www/html/wp/
+
+sudo cp -v wp-config-sample.php wp-config.php
+
+sudo vim wp-config.php
+Configurações realizadas
+define('DB_NAME', 'wordpress');
+
+define('DB_USER', 'wordpress');
+
+define('DB_PASSWORD', 'sua_senha');
+
+Também foram geradas novas chaves de segurança (Salt Keys) para reforçar a proteção das sessões e autenticações do WordPress.
+
+Gerador Oficial de Salt
+https://api.wordpress.org/secret-key/1.1/salt/
+
+Habilitei os módulos necessários do Apache2 para garantir compatibilidade total com o WordPress e suas funcionalidades de reescrita de URL.
+
+Comandos utilizados
+sudo a2enmod cgi alias authz_host deflate dir expires headers mime rewrite autoindex \
+negotiation setenvif
+
+sudo systemctl reload apache2
+
+sudo systemctl status apache2
+Verificação de logs
+sudo journalctl -xeu apache2
+Verificação da versão instalada
+sudo grep ^\$wp_version \
+/var/www/html/wp/wp-includes/version.php
+
+Após a configuração dos serviços, realizei testes de acesso para validar a instalação do CMS.
+
+Comandos utilizados
+curl -I -L http://127.0.0.1/wp
+Acesso Web
+http://IP_DO_SERVIDOR/wp
+
+Durante a configuração inicial foram definidos:
+
+Título do site
+Usuário administrador
+Senha administrativa
+E-mail administrativo
+Tela de Login
+http://192.168.10.20/wp/wp-login.php
+
+Realizei ajustes na estrutura de links permanentes para evitar problemas de roteamento e erros de JSON em ambientes sem DNS ou domínio configurado.
+
+Configuração aplicada
+Configurações
+→ Links Permanentes
+→ Estrutura Padrão
