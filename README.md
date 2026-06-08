@@ -1,6 +1,6 @@
 # Laboratório Servidor Ubuntu 
 
-Criei este servidor para estudar sobre Linux, como configurá-lo e seus serviços.
+Projeto prático desenvolvido com o objetivo de estudar administração de sistemas Linux, configuração de serviços de rede e implantação de aplicações em ambiente Ubuntu Server.
 
 Tecnologias Usadas
 
