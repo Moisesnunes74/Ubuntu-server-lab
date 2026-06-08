@@ -7,6 +7,7 @@ Recursos alocados
 4096 MB de memória RAM
 50 GB de armazenamento
 Adaptador de rede configurado em modo Bridge
+
 2 - Instalação do Ubuntu Server
 
 Foi realizada a instalação do Ubuntu Server 22.04.5 LTS utilizando a imagem ISO oficial da Canonical.
@@ -18,6 +19,7 @@ OpenSSH Server habilitado durante a instalação
 Disco configurado utilizando LVM
 Sistema de arquivos ext4
 Partição raiz (/) expandida para utilizar o espaço disponível do disco
+
 3 - Atualização Inicial do Sistema
 
 Após a instalação foi realizada a atualização completa do sistema operacional para garantir que todos os pacotes estivessem atualizados.
@@ -30,6 +32,7 @@ Atualização completa do sistema
 sudo apt full-upgrade -y
 Reinicialização do servidor
 sudo reboot
+
 4 - Identificação do Sistema
 
 Foram realizados testes para validar a instalação e coletar informações do ambiente.
@@ -46,6 +49,7 @@ Verificar versão do Ubuntu
 lsb_release -a
 Verificar versão do Kernel
 uname -a
+
 5 - Configuração de Rede
 
 Nesta etapa foram realizadas as configurações básicas de rede para permitir comunicação na rede local e acesso remoto ao servidor.
@@ -131,6 +135,7 @@ ping google.com
 Teste utilizando Fping:
 
 fping google.com
+
 6 - Acesso Remoto via SSH
 
 O OpenSSH Server foi habilitado durante a instalação do sistema para permitir acesso remoto ao servidor.
@@ -143,6 +148,7 @@ Habilitar inicialização automática
 sudo systemctl enable ssh
 Conexão remota
 ssh usuario@ip-do-servidor
+
 7 - Habilitação do Ubuntu Pro
 
 Foi realizada a ativação do Ubuntu Pro para ampliar os recursos de segurança e manutenção do ambiente.
