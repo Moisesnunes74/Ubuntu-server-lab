@@ -1,136 +1,89 @@
-bjetivo
-
-Realizar a instalação do Node.js em um servidor Ubuntu Server, configurar o gerenciador de pacotes NPM e criar uma aplicação web simples utilizando o framework Express para validar o funcionamento do ambiente.
-
-Preparação do Ambiente
-
-Antes da instalação, foram atualizados os repositórios do sistema e instaladas as dependências necessárias para compilação, gerenciamento de pacotes e administração do ambiente.
-
-Principais componentes instalados:
-
-Git
-Curl
-Vim
-GCC/G++
-Make
-Build Essential
-Tree
-Certificados HTTPS
-Instalação do Node.js
-
-Foi utilizado o repositório oficial NodeSource para obtenção da versão mais recente do Node.js.
-
-Etapas realizadas:
-
-Adição do repositório NodeSource
-Atualização da lista de pacotes
-Instalação do Node.js
-Instalação automática do NPM
-
-Após a instalação, foram verificadas as versões instaladas para garantir o funcionamento correto do ambiente.
+Foi realizada a instalação das dependências necessárias para compilação e gerenciamento de pacotes, incluindo ferramentas de desenvolvimento, bibliotecas de sistema e utilitários de administração.
 
 Comandos utilizados:
 
-node -v
-npm -v
-Criação do Projeto
+sudo apt update
 
-Para validar a instalação foi criado um projeto simples chamado:
+sudo apt install git vim curl gnupg gcc g++ make software-properties-common tree \
+build-essential ca-certificates apt-transport-https
 
-nodejs-hello
+Adicionei o repositório oficial do NodeSource para disponibilizar versões atualizadas do Node.js e do NPM.
 
-Dentro do diretório foi inicializado um projeto Node.js utilizando:
+Comandos utilizados:
+
+sudo curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash
+
+sudo apt update
+
+Após a configuração do repositório, foi realizada a instalação do Node.js e do NPM (Node Package Manager).
+
+Comandos utilizados:
+
+sudo apt install nodejs
+
+Foram verificadas as versões instaladas do Node.js e do NPM para validação do ambiente e conferência de compatibilidade com futuras aplicações.
+
+Comandos utilizados:
+
+sudo node -v
+sudo npm -v
+
+Para validar o funcionamento da plataforma, foi criado um projeto de testes utilizando Node.js e o framework Express.
+
+Comandos utilizados:
+
+mkdir -v nodejs-hello
+
+ls -lh
+
+cd nodejs-hello/
 
 npm init -y
 
-Esse processo gerou automaticamente o arquivo:
+npm install express
 
-package.json
+ls -lha
 
-responsável pelas configurações e dependências do projeto.
+Foi desenvolvido um servidor web simples utilizando Express, configurado para responder requisições HTTP na porta 3000.
 
-Instalação do Express
+Arquivo criado:
 
-Foi instalado o framework Express, amplamente utilizado para desenvolvimento de aplicações web em Node.js.
+vim index.js
+
+O arquivo index.js foi configurado com uma rota HTTP básica utilizando o framework Express para retornar uma mensagem de teste ao navegador.
+
+Após a criação da aplicação, o servidor foi iniciado em segundo plano para realização dos testes de conectividade.
 
 Comando utilizado:
 
-npm install express
+node index.js &
 
-A instalação criou o diretório:
+Foi realizada a validação da porta de escuta da aplicação para garantir que o serviço estava disponível na porta TCP 3000.
 
-node_modules
+Comando utilizado:
 
-e atualizou os arquivos de gerenciamento de dependências do projeto.
+sudo lsof -nP -iTCP:'3000' -sTCP:LISTEN
 
-Desenvolvimento da Aplicação
+Também foram executados testes de acesso local utilizando ferramentas de linha de comando e navegador web.
 
-Foi criado um arquivo chamado:
+Comandos utilizados:
 
-index.js
+curl -I http://127.0.0.1:3000/
 
-contendo uma aplicação simples com Express.
+Acesso via navegador:
 
-Funcionalidades implementadas:
+http://IP_DO_SERVIDOR:3000
 
-Importação do módulo Express
-Criação da aplicação web
-Configuração de uma rota HTTP GET
-Retorno de uma mensagem para o navegador
-Inicialização do servidor na porta 3000
+Após os testes, a aplicação foi finalizada e os processos em execução foram verificados para garantir o encerramento correto do serviço.
 
-Fluxo da aplicação:
+Comandos utilizados:
 
-Cliente → Requisição HTTP → Express → Resposta HTTP
-Execução e Testes
+jobs
 
-A aplicação foi iniciada através do Node.js:
-
-node index.js
-
-Após a execução, foi realizada a validação da porta utilizada pelo serviço.
-
-Porta padrão:
-
-TCP 3000
-
-Também foram realizados testes utilizando:
-
-curl
-
-e acesso pelo navegador web.
-
-Resultado esperado:
-
-HTTP 200 OK
-
-confirmando que a aplicação estava respondendo corretamente.
-
-Estrutura do Projeto
-
-Estrutura gerada após a criação da aplicação:
-
-nodejs-hello/
-├── index.js
-├── package.json
-├── package-lock.json
-└── node_modules/
-
-Descrição dos componentes:
-
-Arquivo	Função
-index.js	Aplicação principal
-package.json	Configuração do projeto
-package-lock.json	Controle das versões instaladas
-node_modules	Dependências do projeto
-Encerramento da Aplicação
-
-Após os testes, o processo foi finalizado utilizando:
+fg
 
 Ctrl + C
 
-Também foi demonstrado o gerenciamento de processos em segundo plano através dos comandos:
+ps -u
 
-jobs
-fg
 kill -9 PID
