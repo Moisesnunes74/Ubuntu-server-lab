@@ -1,99 +1,161 @@
-1 - Configurei a VM Oracle
-  - 2 Núcleos para processamento
-  - 4096MB de Ram
-  - 50GB de disco
+1 - Configuração da Máquina Virtual
 
-2 - Instalei a Imagem Ubuntu
+Foi criada uma máquina virtual utilizando o Oracle VirtualBox para hospedar o Ubuntu Server.
 
-3 - Atualizações 
-  - Sudo apt update 
-  - sudo apgrade
-  - sudo apt full-upgrade
-  - Reinicialização da VM
+Recursos alocados
+2 vCPUs
+4096 MB de memória RAM
+50 GB de armazenamento
+Adaptador de rede configurado em modo Bridge
+2 - Instalação do Ubuntu Server
 
-4 - Configuração de Rede do Ubuntu Server
+Foi realizada a instalação do Ubuntu Server 22.04.5 LTS utilizando a imagem ISO oficial da Canonical.
 
-Nesta etapa foram realizadas as configurações básicas de rede do Ubuntu Server para permitir comunicação na rede local e acesso remoto.
+Configurações utilizadas
+Idioma: English
+Instalação padrão do Ubuntu Server
+OpenSSH Server habilitado durante a instalação
+Disco configurado utilizando LVM
+Sistema de arquivos ext4
+Partição raiz (/) expandida para utilizar o espaço disponível do disco
+3 - Atualização Inicial do Sistema
 
-Alteração do Hostname e Hosts
+Após a instalação foi realizada a atualização completa do sistema operacional para garantir que todos os pacotes estivessem atualizados.
 
-Foi configurado um nome de host (FQDN) personalizado para o servidor e atualizadas as entradas do arquivo /etc/hosts, permitindo a correta resolução de nomes dentro do ambiente.
+Atualização da lista de pacotes
+sudo apt update
+Atualização dos pacotes instalados
+sudo apt upgrade -y
+Atualização completa do sistema
+sudo apt full-upgrade -y
+Reinicialização do servidor
+sudo reboot
+4 - Identificação do Sistema
+
+Foram realizados testes para validar a instalação e coletar informações do ambiente.
+
+Verificar usuário logado
+whoami
+Verificar hostname
+hostname
+Verificar endereço IP
+hostname -I
+Verificar interfaces de rede
+ip addr
+Verificar versão do Ubuntu
+lsb_release -a
+Verificar versão do Kernel
+uname -a
+5 - Configuração de Rede
+
+Nesta etapa foram realizadas as configurações básicas de rede para permitir comunicação na rede local e acesso remoto ao servidor.
+
+Alteração do Hostname
+
+Foram ajustados os arquivos responsáveis pela identificação do servidor:
+
+sudo nano /etc/hostname
+sudo nano /etc/hosts
+
+Foi definido um hostname personalizado e configurada a resolução local de nomes.
 
 Instalação de Ferramentas de Rede
 
-Foram instalados utilitários de administração e diagnóstico de rede, incluindo:
+Foram instalados utilitários para administração, monitoramento e diagnóstico da infraestrutura.
+
+sudo apt install net-tools bridge-utils ifenslave fping lnav -y
+
+Ferramentas instaladas:
 
 net-tools
 bridge-utils
 ifenslave
 fping
 lnav
-Verificação da Interface de Rede
+Verificação da Configuração de Rede
 
-Foram utilizados comandos para identificar:
+Foram coletadas informações sobre:
 
-Modelo da placa de rede
+Interface de rede
 Endereço MAC
 Endereço IPv4
 Gateway padrão
 Servidores DNS
-Informações obtidas via DHCP
+
+Principais comandos utilizados:
+
+ip addr
+ip route
+resolvectl status
 Configuração do Netplan
 
-A configuração de rede foi ajustada através do Netplan, definindo:
+A configuração de rede foi realizada através do Netplan.
 
-Endereço IP
-Gateway padrão
-Servidores DNS
-Domínio de pesquisa
+Arquivo utilizado:
 
-Após as alterações, as configurações foram aplicadas e validadas utilizando os comandos de diagnóstico do sistema.
+sudo nano /etc/netplan/00-installer-config.yaml
 
+Aplicação das configurações:
+
+sudo netplan generate
+sudo netplan apply
+
+Validação da configuração:
+
+ip addr
+ip route
 Configuração de DNS Seguro
 
-Foi habilitado suporte a DNS Over TLS (DoT) e DNSSEC para aumentar a segurança na resolução de nomes.
+Foram habilitados mecanismos de segurança para resolução de nomes.
 
+Recursos configurados:
+
+DNS Over TLS (DoT)
+DNSSEC
+
+Validação:
+
+resolvectl status
 Testes de Conectividade
 
-Foram realizados testes para validar:
+Foram realizados testes para validar o funcionamento da rede.
 
-Comunicação com a rede local
-Acesso à internet
-Resolução de nomes DNS
-Funcionamento correto das rotas de rede
-Acesso Remoto via SSH
+Teste de comunicação com a internet:
 
-Após a configuração da rede, foi realizado acesso remoto ao servidor utilizando SSH, permitindo a administração do sistema através de outro equipamento.
+ping 8.8.8.8
 
-Preparação e Atualização do Sistema
+Teste de resolução DNS:
 
-Antes da configuração dos serviços, foi realizada a atualização completa do Ubuntu Server para garantir que todos os pacotes estivessem na versão mais recente.
+ping google.com
 
-Identificação do Sistema
+Teste utilizando Fping:
 
-Foram verificadas as informações da distribuição instalada, incluindo:
+fping google.com
+6 - Acesso Remoto via SSH
 
-Versão do Ubuntu Server
-Release LTS (Long Term Support)
-Codinome da distribuição
-Informações de suporte e manutenção
-Atualização do Sistema
+O OpenSSH Server foi habilitado durante a instalação do sistema para permitir acesso remoto ao servidor.
 
-Foi executado o processo de atualização dos pacotes do sistema operacional utilizando o gerenciador APT, incluindo:
-
-Atualização da lista de pacotes
-Instalação de atualizações disponíveis
-Atualização completa do sistema
-Remoção de dependências não utilizadas
-Habilitação do Ubuntu Pro
+Verificar status do serviço
+sudo systemctl status ssh
+Iniciar o serviço
+sudo systemctl start ssh
+Habilitar inicialização automática
+sudo systemctl enable ssh
+Conexão remota
+ssh usuario@ip-do-servidor
+7 - Habilitação do Ubuntu Pro
 
 Foi realizada a ativação do Ubuntu Pro para ampliar os recursos de segurança e manutenção do ambiente.
 
-Recursos utilizados:
-
+Recursos disponibilizados
 Extended Security Maintenance (ESM)
 Atualizações estendidas de segurança
-Verificação do status de segurança dos pacotes
-Monitoramento de vulnerabilidades e correções
+Monitoramento de vulnerabilidades
+Correções adicionais para pacotes suportados
+Verificar status do Ubuntu Pro
+pro status
+Atualização após ativação
+sudo apt update
+sudo apt upgrade -y
 
-Após a ativação do Ubuntu Pro, o sistema foi atualizado novamente para aplicar os novos repositórios e recursos de segurança disponibilizados pela Canonical.
+
