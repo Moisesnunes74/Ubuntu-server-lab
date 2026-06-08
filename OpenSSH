@@ -1,34 +1,95 @@
-Foi configurado o serviço OpenSSH para permitir a administração remota do servidor de forma segura.
+Nesta etapa foi realizada a instalação e configuração do OpenSSH Server no Ubuntu Server, permitindo o gerenciamento remoto do ambiente de forma segura através do protocolo SSH.
 
-Instalação e Validação
+Instalação do OpenSSH
 
-Foram instalados e verificados os componentes do OpenSSH Server e Client, além da validação do serviço e da porta de comunicação utilizada pelo SSH.
+Foi realizada a instalação dos pacotes necessários para acesso remoto e administração do servidor.
 
-Configuração do Serviço
+Comandos utilizados:
 
-As configurações do servidor SSH foram personalizadas para aumentar a segurança e o controle de acesso, incluindo:
+sudo apt update
+sudo apt install openssh-server openssh-client openssl lnav
+Verificação do Serviço
 
-Definição do endereço de escuta da interface de rede
-Restrição de usuários autorizados
-Restrição de grupos autorizados
-Configuração de banner de acesso ao servidor
-Validação dos arquivos de configuração
-Controle de Acesso
+Após a instalação, foi validado o funcionamento do serviço SSH e verificada a versão instalada do OpenSSH Server e Client.
 
-Foram realizadas configurações adicionais para monitoramento e controle de conexões remotas, registrando tentativas de acesso permitidas e negadas através dos arquivos de log do sistema.
+Comandos utilizados:
 
-Gerenciamento de Usuários
+sudo systemctl status ssh
+sudo sshd -V
+sudo ssh -V
+Verificação da Porta de Comunicação
 
-Foi criado um usuário administrativo dedicado para gerenciamento do servidor, com permissões elevadas através do grupo sudo.
+Foi realizada a validação da porta padrão TCP 22 utilizada pelo OpenSSH Server para receber conexões remotas.
 
-Monitoramento e Auditoria
+Comando utilizado:
 
-Foram utilizados comandos e ferramentas de monitoramento para:
+sudo lsof -nP -iTCP:22 -sTCP:LISTEN
+Configuração de Segurança
 
-Verificar usuários conectados
-Monitorar sessões SSH ativas
-Analisar logs de autenticação
-Acompanhar eventos de segurança do sistema
-Testes de Acesso Remoto
+Foram aplicadas configurações de segurança para restringir o acesso remoto apenas a usuários e redes autorizadas.
 
-A conectividade SSH foi validada a partir de diferentes clientes, confirmando o funcionamento correto do acesso remoto ao servidor.
+As configurações incluíram:
+
+Restrição de usuários autorizados;
+Restrição de grupos autorizados;
+Definição do endereço IP de escuta do serviço;
+Configuração de logs para conexões permitidas e negadas;
+Implementação de regras utilizando TCP Wrappers.
+
+Arquivos configurados:
+
+/etc/ssh/sshd_config
+/etc/hosts.allow
+/etc/hosts.deny
+Personalização do Banner de Acesso
+
+Foi configurado um banner informativo apresentado antes da autenticação SSH, contendo informações de identificação do servidor e do administrador responsável.
+
+Arquivos utilizados:
+
+/etc/issue.net
+/etc/issue
+Validação das Configurações
+
+Após as alterações, foi realizada a validação da sintaxe das configurações e reinicialização do serviço.
+
+Comandos utilizados:
+
+sudo sshd -T
+sudo systemctl restart ssh
+sudo systemctl status ssh
+Acesso Remoto ao Servidor
+
+Foram realizados testes de acesso remoto utilizando clientes SSH em diferentes plataformas.
+
+Comando utilizado:
+
+ssh usuario@IP_DO_SERVIDOR
+Monitoramento de Sessões
+
+Foram utilizados comandos para monitorar usuários conectados, sessões ativas e origem das conexões remotas.
+
+Comandos utilizados:
+
+sudo w
+sudo who -Ha
+users
+Criação de Usuário Administrativo
+
+Foi criado um usuário dedicado para administração do servidor, seguindo boas práticas de segurança e separação de privilégios.
+
+Comando utilizado:
+
+sudo adduser admin
+Concessão de Privilégios Administrativos
+
+O usuário administrativo foi adicionado ao grupo sudo, permitindo a execução de tarefas administrativas no sistema.
+
+Comandos utilizados:
+
+sudo usermod -a -G sudo admin
+sudo groups admin
+sudo id admin
+Testes de Autenticação
+
+Por fim, foram realizados testes de login local e remoto para validar as permissões do novo usuário e o correto funcionamento do OpenSSH Server.
